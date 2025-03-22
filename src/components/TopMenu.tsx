@@ -22,7 +22,7 @@ export default async function TopMenu() {
 
                 {/* เมนูด้านขวา */}
                 <div className="flex items-center space-x-6">
-                    <TopMenuItem title="Home" pageRef='/'/>
+                    <TopMenuItem title="Home" pageRef='/homepage'/>
                     <TopMenuItem title="My Profile" pageRef='/myprofile'/>
                     <TopMenuItem title="Admin Dashboard" pageRef='/admindashboard'/>
                 </div>
