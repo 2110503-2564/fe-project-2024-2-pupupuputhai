@@ -1,10 +1,11 @@
 import React from "react";
-import Image from "next/image";
+import Welcome from "@/components/welcomeComponent/Welcome";
 
 
 export default function Home() {
   return (
     <main>
+      <Welcome/>
     </main>
   );
 }
