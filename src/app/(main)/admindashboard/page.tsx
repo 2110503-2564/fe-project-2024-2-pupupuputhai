@@ -24,7 +24,7 @@ export default function Dashboard() {
                     <p className="text-gray-500 mb-6">
                         จัดการการจองโต๊ะของลูกค้า
                     </p>
-                    <Link href="/manage-reservation">
+                    <Link href="/manageReservation">
                         <span className="px-4 py-3 border-2 border-blue-500 hover:text-blue-500 hover:bg-white rounded-lg bg-blue-500 text-white transition-all duration-300 ease-in-out">
                             Manage Reservation
                         </span>
@@ -46,7 +46,7 @@ export default function Dashboard() {
                     <p className="text-gray-500 mb-6">
                         จัดการเมนูและข้อมูลร้าน
                     </p>
-                    <Link href="/manage-restaurant">
+                    <Link href="/manageRestaurant">
                     <span className="px-4 py-3 border-2 border-blue-500 hover:text-blue-500 hover:bg-white rounded-lg bg-blue-500 text-white transition-all duration-300 ease-in-out">
                     Manage Restaurant
                         </span>

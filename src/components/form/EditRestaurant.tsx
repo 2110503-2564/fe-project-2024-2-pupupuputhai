@@ -3,14 +3,14 @@
 import { useState } from "react";
 import { TextField, Button, Card, CardContent, Typography } from "@mui/material";
 
-const existingData = {
-  name: "Sample Restaurant",
-  tel: "123-456-7890",
-  address: "123 Main St, City, Country",
-  image: ""
-};
 
-export default function EditRestaurant() {
+export default function EditRestaurantForm() {
+  const existingData = {
+    name: "Sample Restaurant",
+    tel: "123-456-7890",
+    address: "123 Main St, City, Country",
+    image: ""
+  };
   const [name, setName] = useState(existingData.name);
   const [tel, setTel] = useState(existingData.tel);
   const [address, setAddress] = useState(existingData.address);

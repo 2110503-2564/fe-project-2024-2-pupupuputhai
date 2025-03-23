@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { TextField, Button } from "@mui/material";
 
-export default function CreateRestaurant() {
+export default function CreateRestaurantForm() {
   const [name, setName] = useState("");
   const [tel, setTel] = useState("");
   const [address, setAddress] = useState("");
