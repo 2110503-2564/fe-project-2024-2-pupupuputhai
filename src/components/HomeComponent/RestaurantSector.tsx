@@ -3,26 +3,17 @@ import Link from "next/link"
 
 
 
-export default function RestaurantSector(){
+export default async function RestaurantSector( {restaurantJson}:{ restaurantJson:Promise<RestaurantJson> }){
+    const restaurant = await restaurantJson
 
-    const mockVenue = [
-        {rid: '001', name: 'The Bloom Pavilion', img:'/image/bloom.jpg' , openTime: '9:00' , closeTime: '20:00'},
-        {rid: '002', name: 'Spark Space', img:'/image/sparkspace.jpg' , openTime: '9:00' , closeTime: '20:00'},
-        {rid: '003', name: 'The Grand Table', img:'/image/grandtable.jpg', openTime: '9:00' , closeTime: '20:00' },
-        {rid: '002', name: 'Spark Space', img:'/image/sparkspace.jpg' , openTime: '9:00' , closeTime: '20:00'},
-        {rid: '002', name: 'Spark Space', img:'/image/sparkspace.jpg' , openTime: '9:00' , closeTime: '20:00'},
-        {rid: '002', name: 'Spark Space', img:'/image/sparkspace.jpg' , openTime: '9:00' , closeTime: '20:00'},
-        {rid: '002', name: 'Spark Space', img:'/image/sparkspace.jpg' , openTime: '9:00' , closeTime: '20:00'},
-        
-    ] 
 
     return(
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 px-5 m-4">
-            {mockVenue.map((item) => (
-            <Link href={`/home/restaurant/${item.rid}`}>
+            {restaurant.data.map((item:RestaurantItem) => (
+            <Link href={`/home/restaurant/${item.id}`}>
                 <div className='w-full h-[320px] rounded-lg shadow-lg bg-white border-2 border-solid'>
                 <div className='w-full h-[70%] relative rounded-t-lg'>
-                    <Image src={item.img}
+                    <Image src={item.image}
                     alt='table'
                     fill={true}
                     className='object-cover rounded-t-lg'             
@@ -30,7 +21,7 @@ export default function RestaurantSector(){
                 </div>
                     <div className='w-full h-[15%]'>
                         <h2 className='text-blue-600 dark:text-sky-400 pt-[10px] pl-[5px]'>{item.name}</h2>
-                        <h6 className='text-slate-600 dark:text-slate-400  p-[5px]'>{item.openTime} - {item.closeTime}</h6>
+                        <h6 className='text-slate-600 dark:text-slate-400  p-[5px]'>{item.open_time} - {item.close_time}</h6>
                     </div>
                 </div>
             </Link>

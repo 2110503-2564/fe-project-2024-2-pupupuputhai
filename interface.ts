@@ -26,6 +26,13 @@ interface VenueItem {
     bookDate: string;
   }
 
+
+interface RestaurantJson {
+    success: boolean,
+    count: number,
+    pagination: Object,
+    data: RestaurantItem[]
+  }
   interface RestaurantItem {
     id: string ,
     name: string,
