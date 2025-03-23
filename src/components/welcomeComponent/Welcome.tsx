@@ -30,7 +30,7 @@ export default function ho(){
                 </ul>
 
 
-                <button className="absolute top-1/2 right-40 transform -translate-y-1/2 bg-[#8B5E3C] text-white text-lg font-semibold px-6 py-3 rounded-lg shadow-lg hover:bg-[#6B3F24]"
+                <button className="absolute top-1/2 right-40 bg-[#8B5E3C] text-white text-lg font-semibold px-6 py-3 rounded-lg shadow-lg hover:bg-[#6B3F24]"
                     onClick={() => route.push("/home")}
                 >
                     Get Started
