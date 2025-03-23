@@ -9,10 +9,7 @@ export default function RestaurantSector(){
         {vid: '001', name: 'The Bloom Pavilion', img:'/image/bloom.jpg' , openTime: '9:00' , closeTime: '20:00'},
         {vid: '002', name: 'Spark Space', img:'/image/sparkspace.jpg' , openTime: '9:00' , closeTime: '20:00'},
         {vid: '003', name: 'The Grand Table', img:'/image/grandtable.jpg', openTime: '9:00' , closeTime: '20:00' },
-        {vid: '002', name: 'Spark Space', img:'/image/sparkspace.jpg' , openTime: '9:00' , closeTime: '20:00'},
-        {vid: '002', name: 'Spark Space', img:'/image/sparkspace.jpg' , openTime: '9:00' , closeTime: '20:00'},
-        {vid: '002', name: 'Spark Space', img:'/image/sparkspace.jpg' , openTime: '9:00' , closeTime: '20:00'},
-        {vid: '002', name: 'Spark Space', img:'/image/sparkspace.jpg' , openTime: '9:00' , closeTime: '20:00'},
+        
         
     ] 
 
@@ -20,7 +17,9 @@ export default function RestaurantSector(){
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 px-5 m-4">
                     {mockVenue.map((item) => (
                         // <Link href={}
-                        <div className='w-full h-[320px] rounded-lg shadow-lg bg-white border-2 border-solid'>
+                        <div 
+                            key={item.vid}
+                            className='w-full h-[320px] rounded-lg shadow-lg bg-white border-2 border-solid'>
                             <div className='w-full h-[70%] relative rounded-t-lg'>
                             <Image src={item.img}
                                 alt='table'

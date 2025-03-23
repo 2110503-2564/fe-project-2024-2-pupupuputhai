@@ -1,82 +1,51 @@
 "use client";
 
 import { useState } from "react";
-import { TextField } from "@mui/material"
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { TextField } from "@mui/material";
 
-export default function Login() {
+export default function SignUp() {
   const [name, setName] = useState("");
-  const [role, setRole] = useState("");
   const [tel, setTel] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
 
-  const handleSignUp = (event: React.FormEvent) => {
-    event.preventDefault();
-    // Add sign-up logic here
+  const handleSignUp = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, password, tel }),
+      });
+
+      const res = await response.json();
+      if (!response.ok) {
+        alert(res.error || "Failed to sign up.");
+        return;
+      }
+      const res2log = await signIn("SignIn", { email, password, redirect: false });
+      
+      if (res2log?.error) {
+        alert(res2log?.error);
+      } else {
+        router.push("/home");
+      }
+      
+    } catch (error) {
+      console.error("Sign up error:", error);
+    }
   };
 
   return (
-    <div className="flex justify-center items-center mt-[70px] mb-[50px]">
-      <div className="w-96 p-6 shadow-lg bg-white rounded-2xl">
-        <h2 className="text-2xl font-semibold text-center mb-4">Sign Up</h2>
-        
-        <form style={{ display: "flex", flexDirection: "column", gap: "16px", width: "300px" }}>
-          <TextField 
-            name="Name" 
-            label="Name" 
-            variant="standard" 
-            fullWidth 
-            onChange={(e) => setName(e.target.value)}
-          />
-          
-          <TextField 
-            name="Role" 
-            label="Role" 
-            variant="standard" 
-            fullWidth 
-            onChange={(e) => setRole(e.target.value)}
-          />
-          
-          <TextField 
-            name="Tel" 
-            label="Tel" 
-            variant="standard" 
-            fullWidth 
-            onChange={(e) => setTel(e.target.value)}
-          />
-          
-          <TextField 
-            name="Email" 
-            label="Email" 
-            type="email" 
-            variant="standard" 
-            fullWidth 
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          
-          <TextField 
-            name="Password" 
-            label="Password" 
-            type="password" 
-            variant="standard" 
-            fullWidth 
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          
-          <button 
-            type="submit" 
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-4 rounded-lg" 
-            onClick={handleSignUp}
-          >
-            Sign Up
-          </button>
-        </form>
-        
-        <div className="text-center text-sm mt-4">
-          <span>Already have an account? </span>
-          <a href="/login" className="text-blue-600 hover:underline">Login</a>
-        </div>
-      </div>
-    </div>
+    <form className="flex flex-col gap-4 w-[350px] mx-auto items-center" onSubmit={handleSignUp}>
+      <TextField label="Name" variant="standard" fullWidth onChange={(e) => setName(e.target.value)} />
+      <TextField label="Tel" variant="standard" fullWidth onChange={(e) => setTel(e.target.value)} />
+      <TextField label="Email" type="email" variant="standard" fullWidth onChange={(e) => setEmail(e.target.value)} />
+      <TextField label="Password" type="password" variant="standard" fullWidth onChange={(e) => setPassword(e.target.value)} />
+      <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded">Sign Up</button>
+    </form>
   );
 }
