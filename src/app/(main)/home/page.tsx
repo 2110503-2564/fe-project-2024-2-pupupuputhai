@@ -11,6 +11,7 @@ export default function HomePage(){
     const [restaurant,setRestaurant] = useState<RestaurantJson | null>(null)
     const [page, setPage] = useState(1);
     const [search, setSearch] = useState("");
+    console.log(restaurant?.pagination)
     useEffect(() => {
         const fetchData = async () => {
             const Restaurants = await getRestaurants(page,search);

@@ -1,6 +1,6 @@
 
 export default async function getRestaurant(id : string) {
-    const res = await fetch(`http://localhost:5000/api/restaurants/${id}`);
+    const res = await fetch(`https://backend-restaurant-project.vercel.app/api/restaurants/${id}`);
     
     if(!res.ok){
         console.log(`here --------> ${id}`)
