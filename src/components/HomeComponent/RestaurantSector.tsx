@@ -36,7 +36,9 @@ export default async function RestaurantSector( {restaurantJson}:{ restaurantJso
                     </div>
                 </Link>
                 
+
             ))}
         </div>
-    )
+    );
+    
 }

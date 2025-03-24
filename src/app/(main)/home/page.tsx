@@ -7,7 +7,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-
 export default function HomePage(){
     const [restaurant,setRestaurant] = useState<RestaurantJson | null>(null)
     const [page, setPage] = useState(1);
