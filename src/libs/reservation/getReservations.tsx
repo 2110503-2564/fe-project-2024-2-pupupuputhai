@@ -1,6 +1,5 @@
 export default async function getReservations(token: string) {
 
-    await new Promise( (resolve) => setTimeout(resolve,300))
     const res = await fetch("https://backend-restaurant-project.vercel.app/api/reservations/" ,{
         method: "GET",
         headers: {
