@@ -6,23 +6,34 @@ import { useEffect, useState } from "react";
 import { FaRegCommentDots } from "react-icons/fa";
 
 import { LinearProgress } from "@mui/material";
+import BookingModal from "@/components/form/BookingModal";
+import { getServerSession, Session } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
+import toast from "react-hot-toast";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function RestaurantPage({params} : {params:{rid:string}}){
    
     // const restaurant =  await getRestaurant(params.rid);
     // const comments = await getComments(params.rid);
-
+    const router = useRouter();
+    const { data: session } = useSession();  
     const [restaurant, setRestaurant] = useState<RestaurantItem | null>(null);
     const [comments, setComments] = useState<CommentItem[]>([]);
+    // const [session, setSession ] = useState<Session | null>(null)
+    const [showModal, setShowModal] = useState(false);
     const [imageIndex,setImageIndex] = useState(0);
     useEffect(() => {
         const fetchData = async () => {
             const res = await getRestaurant(params.rid);
             const com = await getComments(params.rid);
+            // const session = await getServerSession(authOptions);
+            // setSession(session);
             setRestaurant(res.data);
             setComments(com.data);
-          };
-          fetchData();
+        };
+        fetchData();
     }, [params.rid]);
 
     if(!restaurant)return(
@@ -51,7 +62,7 @@ export default function RestaurantPage({params} : {params:{rid:string}}){
                         { restaurant.description }
                     </div>
                     <div className="text-md mx-5 p-5  text-slate-900 ">
-                        address : {restaurant.address}
+                        address: {restaurant.address}
                     </div>    
                     <div className="text-sm mx-5 p-5 pb-10  text-slate-900 ">
                          tel: {restaurant.tel}
@@ -59,7 +70,13 @@ export default function RestaurantPage({params} : {params:{rid:string}}){
                     {/* <Link href={`/booing?id=${params.vid}&venue=${VenueDetail.name}`}> */}
                     <button className="absolute right-2 bottom-2 rounded-md bg-gradient-to-r from-red-700 to-red-500 
                         px-3 py-2 text-white transition-transform duration-300 transform hover:scale-105 hover:opacity-90"
-
+                        onClick={() => {
+                            if(!session?.user){
+                                router.push('/login')
+                            }
+                            // toast.success('Successfully toasted!');
+                            setShowModal(true);
+                        }}
                     >
                         Book Now
                     </button>
@@ -116,6 +133,14 @@ export default function RestaurantPage({params} : {params:{rid:string}}){
                     
                 {/* </div> */}
             </div>
+            <BookingModal
+                isOpen={showModal}
+                onClose={() => setShowModal(false)}
+                minTime={restaurant.open_time}
+                maxTime={restaurant.close_time}
+                restaurantId={params.rid}
+            />
+            
           
         </div>
     )
