@@ -24,6 +24,20 @@ export default function BookingModal({ isOpen, onClose, minTime , maxTime , rest
             minMinutes: minMinute,
             maxHours: maxHour,
             maxMinutes: maxMinute,
+            locale: {
+                days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+                daysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+                daysMin: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+                months: [
+                    'January', 'February', 'March', 'April', 'May', 'June', 
+                    'July', 'August', 'September', 'October', 'November', 'December'
+                ],
+                monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                today: 'Today',
+                clear: 'Clear',
+                dateFormat: 'yyyy-MM-dd HH:mm',
+                firstDay: 0
+            },
             onSelect({ formattedDate }) {
                 let cleanedDate = "";
                 if (Array.isArray(formattedDate)) {
@@ -64,7 +78,7 @@ export default function BookingModal({ isOpen, onClose, minTime , maxTime , rest
 
     return (
         <div
-        className="fixed inset-0 bg-black/30 flex items-center justify-center z-50"
+            className="fixed inset-0 bg-black/30 flex items-center justify-center z-50"
             onClick={() => {onClose();}}
         >
             <div
