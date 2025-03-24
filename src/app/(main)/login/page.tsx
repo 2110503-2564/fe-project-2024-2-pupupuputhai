@@ -1,6 +1,6 @@
 "use client";
 
-import AuthForm from "@/components/auths/AuthForm";
+import AuthForm from "@/components/form/AuthForm";
 
 export default function SignInPage() {
   return (
