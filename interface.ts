@@ -27,24 +27,31 @@ interface VenueItem {
   }
 
 
-interface RestaurantJson {
+  interface RestaurantJson {
     success: boolean,
     count: number,
     pagination: Object,
     data: RestaurantItem[]
   }
   interface RestaurantItem {
-    id: string ,
+    _id: string ,
     name: string,
     address:string,
     tel:string,
     open_time:string,
     close_time:string,
-    image:string,
+    image:string[],
     // เเปะไว้ก่อน
     description:string
   }
 
+
+  interface CommentJson {
+    success: boolean,
+    count: number,
+    pagination: Object,
+    data: CommentItem[]
+  }
   interface CommentItem {
     user:string ,
     restaurant: string,

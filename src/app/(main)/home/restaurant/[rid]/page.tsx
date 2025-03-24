@@ -1,23 +1,44 @@
+'use client'
+import getComments from "@/libs/getComments";
+import getRestaurant from "@/libs/getRestaurant";
 import Image from "next/image"
-import Link from "next/link"
+import { useEffect, useState } from "react";
 import { FaRegCommentDots } from "react-icons/fa";
 
+import { LinearProgress } from "@mui/material";
+
 export default function RestaurantPage({params} : {params:{rid:string}}){
-    let restaurant:RestaurantItem = {id:'001' , name:'resDee' , address:'123 street',tel:'222-333-4444',open_time:'9:00',close_time:'20:00',image:'/image/bloom.jpg' , description:'lsdkjfsdlkjfsldkjflksdjflksdjafwiejfowioefnvoenv'}
-    // let comments:CommentItem = {user:'001', restaurant:'001',comment:'อาาา หร่อยยย',createAt:'12/03/2077 11:13'}
-    const comments = [
-        {user:'001', restaurant:'001',comment:'อาาา หร่อยยย',createAt:'12/03/2077 11:13'},
-        {user:'001', restaurant:'001',comment:'อาาา หร่อยยย',createAt:'12/03/2077 11:13'},
-        {user:'001', restaurant:'001',comment:'อาาา หร่อยยย',createAt:'12/03/2077 11:13'},
-        {user:'001', restaurant:'001',comment:'อาาา หร่อยยย',createAt:'12/03/2077 11:13'}
-    ]
+   
+    // const restaurant =  await getRestaurant(params.rid);
+    // const comments = await getComments(params.rid);
+
+    const [restaurant, setRestaurant] = useState<RestaurantItem | null>(null);
+    const [comments, setComments] = useState<CommentItem[]>([]);
+    const [imageIndex,setImageIndex] = useState(0);
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await getRestaurant(params.rid);
+            const com = await getComments(params.rid);
+            setRestaurant(res.data);
+            setComments(com.data);
+          };
+          fetchData();
+    }, [params.rid]);
+
+    if(!restaurant)return(
+        <p className="text-center text-lg mt-5">loading ...<LinearProgress/></p>
+    )
     return(
         <div>
             <div className="flex flex-row ">
                 
-                <div className="bg-emerald-100 w-1/2">
+                <div className="bg-emerald-100 w-1/2"
+                    onClick={() => {
+                        setImageIndex((prev) => (restaurant.image ? (prev + 1) % restaurant.image.length : 0));
+                    }}
+                >
                     <p className="ml-3 font-semibold text-lg">{restaurant.name}</p>
-                    <Image src={restaurant.image}
+                    <Image src={restaurant.image[imageIndex]}
                         alt={`${restaurant.name} image`}
                         width={0} height={0} sizes="100vw"
                         className="rounded-lg w-full"
@@ -35,7 +56,7 @@ export default function RestaurantPage({params} : {params:{rid:string}}){
                     <div className="text-sm mx-5 p-5 pb-10  text-slate-900 ">
                          tel: {restaurant.tel}
                     </div> 
-                    {/* <Link href={`/booing?id=${params.vid}&venue=${VenueDetail.data.name}`}> */}
+                    {/* <Link href={`/booing?id=${params.vid}&venue=${VenueDetail.name}`}> */}
                     <button className="absolute right-2 bottom-2 rounded-md bg-gradient-to-r from-red-700 to-red-500 
                         px-3 py-2 text-white transition-transform duration-300 transform hover:scale-105 hover:opacity-90"
 
@@ -59,30 +80,38 @@ export default function RestaurantPage({params} : {params:{rid:string}}){
                         <div className="place-items-end mr-3">
                             <FaRegCommentDots />    
                         </div>    
+                        
                         {
-                            comments.map((comment) => (
-                                <div className="rounded-lg bg-white p-3 m-2">
-                                    <div className="flex flex-row relative ">
-                                        <div className={`size-10 rounded-full inline bg-[url(/image/bloom.jpg)]`}/>
-                                        
-                                        <div className="flex flex-col pl-3">
-                                            <p className="text-black">{comment.user}</p>
-                                            <p className="text-xs text-black">{comment.createAt}</p>
-                                        </div>
+                            comments.length > 0 ?
+                            
+                                comments.map((comment:CommentItem) => (
+                                    <div className="rounded-lg bg-white p-3 m-2">
+                                        <div className="flex flex-row relative ">
+                                            <div className={`size-10 rounded-full inline bg-[url(/image/bloom.jpg)]`}/>
+                                            
+                                            <div className="flex flex-col pl-3">
+                                                <p className="text-black">{comment.user}</p>
+                                                <p className="text-xs text-black">{comment.createAt}</p>
+                                            </div>
 
-                                        <div className="flex flex-row gap-1 pt-1 absolute right-2">
-                                            <div className="rounded-full size-2 bg-black"/>
-                                            <div className="rounded-full size-2 bg-black"/>
-                                            <div className="rounded-full size-2 bg-black"/>
+                                            <div className="flex flex-row gap-1 pt-1 absolute right-2">
+                                                <div className="rounded-full size-2 bg-black"/>
+                                                <div className="rounded-full size-2 bg-black"/>
+                                                <div className="rounded-full size-2 bg-black"/>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            {comment.comment}
                                         </div>
                                     </div>
-                                    <div>
-                                        {comment.comment}
-                                    </div>
-                                </div>
 
-                            ))
-                        }    
+                                ))
+                            
+                        :
+                            <div className="text-center text-2xl m-10">
+                                No Comment
+                            </div>
+                        }
                     </div>
                     
                 {/* </div> */}
