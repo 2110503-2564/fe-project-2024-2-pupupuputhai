@@ -36,13 +36,13 @@ export default function BookingModal({ isOpen, onClose, restaurantId}:{isOpen:bo
     return (
         <div
         className="fixed inset-0 bg-black/30 flex items-center justify-center z-50"
-            onClick={() => {onClose();}}
+            // onClick={() => {onClose();}}
         >
             <div
-                className="bg-white p-6 rounded-xl shadow-xl w-full max-w-md"
-                onClick={(e) => e.stopPropagation()}
+                className="bg-white p-6 rounded-xl shadow-xl w-full "
+                // onClick={(e) => e.stopPropagation()}
             >
-                <h2 className="text-2xl font-bold mb-4">Booking</h2>
+                
 
                 <div className='w-full'>
                     <TextField

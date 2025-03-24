@@ -8,6 +8,7 @@ import { LinearProgress } from "@mui/material";
 import BookingModal from "@/components/form/BookingModal";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 export default function RestaurantPage({params} : {params:{rid:string}}){
    
@@ -15,7 +16,8 @@ export default function RestaurantPage({params} : {params:{rid:string}}){
     const { data: session } = useSession();  
     const [restaurant, setRestaurant] = useState<RestaurantItem | null>(null);
     const [comments, setComments] = useState<CommentItem[]>([])
-    const [showModal, setShowModal] = useState(false);
+    const [showResModal, setShowResModal] = useState(false);
+    const [showComModal, setShowComModal] = useState(false);
     const [imageIndex,setImageIndex] = useState(0);
     useEffect(() => {
         const fetchData = async () => {
@@ -66,7 +68,7 @@ export default function RestaurantPage({params} : {params:{rid:string}}){
                                 router.push('/login')
                             }
                             // toast.success('Successfully toasted!');
-                            setShowModal(true);
+                            setShowResModal(true);
                         }}
                     >
                         Book Now
@@ -86,13 +88,17 @@ export default function RestaurantPage({params} : {params:{rid:string}}){
                     
                     <div className="rounded-md flex flex-col bg-slate-100 pt-2 ">
                         <div className="place-items-end mr-3"
-                            onClick={() => {
-                                if(!session?.user){
-                                    router.push('/login')
-                                }
-                            }}
+                           
                         >
-                            <FaRegCommentDots />    
+                            <FaRegCommentDots 
+                                onClick={() => {
+                                    if(!session?.user){
+                                        router.push('/login')
+                                    }
+                                    // toast.success('hi')
+                                    setShowComModal(true);
+                                }}
+                            />    
                         </div>    
                         
                         {
@@ -133,8 +139,8 @@ export default function RestaurantPage({params} : {params:{rid:string}}){
                 {/* </div> */}
             </div>
             <BookingModal
-                isOpen={showModal}
-                onClose={() => setShowModal(false)}
+                isOpen={showResModal}
+                onClose={() => setShowResModal(false)}
                 minTime={restaurant.open_time}
                 maxTime={restaurant.close_time}
                 restaurantId={params.rid}
