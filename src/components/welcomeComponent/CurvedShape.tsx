@@ -5,8 +5,8 @@ export default function CurvedShape(){
       <svg viewBox="0 0 400 200" className="h-full opacity-90 absolute z-10 ">
       <defs>
         <linearGradient id="grayGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#000000" />      {/* Dark gray */}
-          <stop offset="100%" stopColor="#d4d4d4" />    {/* Light gray */}
+          <stop offset="0%" stopColor="#000000" />    
+          <stop offset="100%" stopColor="#d4d4d4" />    
         </linearGradient>
     
         <clipPath id="circularCutout">
