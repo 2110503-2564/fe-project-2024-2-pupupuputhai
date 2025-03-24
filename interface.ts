@@ -33,7 +33,7 @@ interface RestaurantJson {
   data: RestaurantItem[]
 }
 interface RestaurantItem {
-  id: string ,
+  _id: string ,
   name: string,
   address:string,
   tel:string,

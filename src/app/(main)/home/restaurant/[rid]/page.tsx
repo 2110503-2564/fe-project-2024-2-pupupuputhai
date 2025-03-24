@@ -4,32 +4,25 @@ import getRestaurant from "@/libs/getRestaurant";
 import Image from "next/image"
 import { useEffect, useState } from "react";
 import { FaRegCommentDots } from "react-icons/fa";
-
 import { LinearProgress } from "@mui/material";
 import BookingModal from "@/components/form/BookingModal";
-import { getServerSession, Session } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
-import toast from "react-hot-toast";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 export default function RestaurantPage({params} : {params:{rid:string}}){
    
-    // const restaurant =  await getRestaurant(params.rid);
-    // const comments = await getComments(params.rid);
     const router = useRouter();
     const { data: session } = useSession();  
     const [restaurant, setRestaurant] = useState<RestaurantItem | null>(null);
-    const [comments, setComments] = useState<CommentItem[]>([]);
-    // const [session, setSession ] = useState<Session | null>(null)
-    const [showModal, setShowModal] = useState(false);
+    const [comments, setComments] = useState<CommentItem[]>([])
+    const [showResModal, setShowResModal] = useState(false);
+    const [showComModal, setShowComModal] = useState(false);
     const [imageIndex,setImageIndex] = useState(0);
     useEffect(() => {
         const fetchData = async () => {
             const res = await getRestaurant(params.rid);
             const com = await getComments(params.rid);
-            // const session = await getServerSession(authOptions);
-            // setSession(session);
             setRestaurant(res.data);
             setComments(com.data);
         };
@@ -75,7 +68,7 @@ export default function RestaurantPage({params} : {params:{rid:string}}){
                                 router.push('/login')
                             }
                             // toast.success('Successfully toasted!');
-                            setShowModal(true);
+                            setShowResModal(true);
                         }}
                     >
                         Book Now
@@ -94,8 +87,18 @@ export default function RestaurantPage({params} : {params:{rid:string}}){
                 {/* <div className="relative"> */}
                     
                     <div className="rounded-md flex flex-col bg-slate-100 pt-2 ">
-                        <div className="place-items-end mr-3">
-                            <FaRegCommentDots />    
+                        <div className="place-items-end mr-3"
+                           
+                        >
+                            <FaRegCommentDots 
+                                onClick={() => {
+                                    if(!session?.user){
+                                        router.push('/login')
+                                    }
+                                    // toast.success('hi')
+                                    setShowComModal(true);
+                                }}
+                            />    
                         </div>    
                         
                         {
@@ -111,7 +114,9 @@ export default function RestaurantPage({params} : {params:{rid:string}}){
                                                 <p className="text-xs text-black">{comment.createAt}</p>
                                             </div>
 
-                                            <div className="flex flex-row gap-1 pt-1 absolute right-2">
+                                            <div className="flex flex-row gap-1 pt-1 absolute right-2"
+                                                
+                                            >
                                                 <div className="rounded-full size-2 bg-black"/>
                                                 <div className="rounded-full size-2 bg-black"/>
                                                 <div className="rounded-full size-2 bg-black"/>
@@ -134,8 +139,8 @@ export default function RestaurantPage({params} : {params:{rid:string}}){
                 {/* </div> */}
             </div>
             <BookingModal
-                isOpen={showModal}
-                onClose={() => setShowModal(false)}
+                isOpen={showResModal}
+                onClose={() => setShowResModal(false)}
                 minTime={restaurant.open_time}
                 maxTime={restaurant.close_time}
                 restaurantId={params.rid}
