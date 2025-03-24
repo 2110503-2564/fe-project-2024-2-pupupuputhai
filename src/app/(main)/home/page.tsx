@@ -11,18 +11,34 @@ export default function HomePage(){
     const [restaurant,setRestaurant] = useState<RestaurantJson | null>(null)
     const [page, setPage] = useState(1);
     const [search, setSearch] = useState("");
-    console.log(restaurant?.pagination)
+    const [next,setNext] = useState(true);
+    const [prev,setPrev] = useState(true);
+   
     useEffect(() => {
         const fetchData = async () => {
             const Restaurants = await getRestaurants(page,search);
             setRestaurant(Restaurants);
+            if(!Restaurants.pagination.next){
+                console.log(`not have next ${Restaurants.pagination.next}`)
+                setNext(false)
+            }else if(Restaurants.pagination.next){
+                setNext(true)
+            }
+            if(!Restaurants.pagination.prev){
+                console.log(`not have prev ${Restaurants.pagination.prev}`)
+                setPrev(false)
+            }else if(Restaurants.pagination.prev){
+                setPrev(true)
+            }
+            console.log(Restaurants)
         };
         fetchData();    
     },[page, search]);
     // console.log(`->>>>>>>>>>>>>>>>> ${Restaurants}`)
     if(!restaurant)return(
             <p className="text-center text-lg mt-5">loading ...<LinearProgress/></p>
-    )
+    ) 
+    
     return(
         <main className="bg-gradient-to-r from-purple-400 to-rose-500 grid justify-items-stretch">
             <Promotion/>
@@ -56,7 +72,12 @@ export default function HomePage(){
                 ))}
             </div>
             <div className="flex flex-row justify-self-center">
-                <button onClick={() => setPage((prev) => prev-1)} className="text-2xl">❮</button>
+                
+                {prev ? 
+                    <button onClick={() => setPage((prev) => prev-1)} className="text-2xl">❮</button>
+                    :
+                    ''
+                }
                 <div className="flex items-center bg-gray-300 rounded-full mx-2">
                 {/* {Array.from({ length: totalPages }, (_, i) => (
                     <button
@@ -69,7 +90,12 @@ export default function HomePage(){
                 ))} */}
                    <p className="mx-2">{page}</p> 
                 </div>
-                <button onClick={() => setPage((prev) => prev+1)} className="text-2xl">❯</button>
+                {next?
+                   <button onClick={() => setPage((prev) => prev+1)} className="text-2xl">❯</button>  
+                   :
+                   ''
+                }
+               
             </div>
 
         </main>
