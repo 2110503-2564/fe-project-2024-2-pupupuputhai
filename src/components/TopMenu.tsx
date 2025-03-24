@@ -23,7 +23,9 @@ export default function TopMenu() {
 
                 <div className="flex items-center space-x-6">
                     <TopMenuItem title="Home" pageRef='/home' />
-                    <TopMenuItem title="My Profile" pageRef='/myprofile' />
+                    {session ? (
+                        <TopMenuItem title="My Profile" pageRef='/myprofile' />
+                    ) : (null)}
                     <TopMenuItem title="Admin Dashboard" pageRef='/admindashboard' />
                 </div>
 
