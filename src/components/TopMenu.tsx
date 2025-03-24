@@ -7,7 +7,6 @@ import { useSession, signOut } from 'next-auth/react';
 
 export default function TopMenu() {
     const { data: session } = useSession(); 
-
     return (
         <div className="w-full bg-white shadow-md fixed top-0 left-0 right-0 z-50">
             <div className="container mx-auto flex items-center justify-between h-[60px]">
