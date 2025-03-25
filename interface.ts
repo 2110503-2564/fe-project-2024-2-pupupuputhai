@@ -1,30 +1,4 @@
-// interface VenueItem {
-//   _id: string,
-//   name: string,
-//   address: string,
-//   district: string,
-//   province: string,
-//   postalcode: string,
-//   tel: string,
-//   picture: string,
-//   dailyrate: number,
-//   __v: number,
-//   id: string
-// }
 
-// interface VenueJson {
-//   success: boolean,
-//   count: number,
-//   pagination: Object,
-//   data: VenueItem[]
-// }
-
-// interface BookingItem {
-//   nameLastname: string;
-//   tel: string;
-//   venue: string;
-//   bookDate: string;
-// }
 
 interface RestaurantJson {
   success: boolean,
@@ -61,4 +35,24 @@ interface User {
     tel: string,
     createdAt: string,
     token: string
+}
+
+interface Reservation {
+  _id: string;
+  reserDate: string;
+  user: string;
+  nameUser?: string;
+  restaurant: {
+    _id: string;
+    name: string;
+    address: string;
+    tel: string;
+  };
+  createdAt: string;
+}
+
+interface ReservationResponse {
+  success: boolean;
+  count: number;
+  data: Reservation[];
 }
