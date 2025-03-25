@@ -19,22 +19,18 @@ export default function HomePage(){
             const Restaurants = await getRestaurants(page,10,search);
             setRestaurant(Restaurants);
             if(!Restaurants.pagination.next){
-                console.log(`not have next ${Restaurants.pagination.next}`)
                 setNext(false)
             }else if(Restaurants.pagination.next){
                 setNext(true)
             }
             if(!Restaurants.pagination.prev){
-                console.log(`not have prev ${Restaurants.pagination.prev}`)
                 setPrev(false)
             }else if(Restaurants.pagination.prev){
                 setPrev(true)
             }
-            // console.log(Restaurants)
         };
         fetchData();    
     },[page, search]);
-    // console.log(`->>>>>>>>>>>>>>>>> ${Restaurants}`)
     if(!restaurant)return(
             <p className="text-center text-lg mt-5">loading ...<LinearProgress/></p>
     ) 
@@ -58,13 +54,6 @@ export default function HomePage(){
                                 <p className='text-blue-600 dark:text-sky-400 pt-[10px] pl-[5px]'>{item.name}</p>
                                 <p className='text-slate-600 dark:text-slate-400  p-[5px]'>⏰{item.open_time}-{item.close_time}</p>
                                 <p className='text-slate-600 dark:text-slate-400  p-[5px]'>📍{item.address}</p>
-                                
-                                {/* <button className="w-[90%] rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 
-                                    px-3 py-2 text-white justify-self-center"
-                                >
-                                    Veiw Details
-                                </button> */}
-                                
                             </div>
                         </div>
                     </Link>

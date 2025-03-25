@@ -27,10 +27,8 @@ export default function CommentModal({ isOpen, onClose, restaurantId , name , im
                 }), 
             })
             if(response.ok)posted();
-            // toast.success('Reserve Successfully ')
         }catch (e) {
             toast.error('comment Fail')
-            console.log('reserve fail',e)
         }
     }
 
@@ -39,11 +37,9 @@ export default function CommentModal({ isOpen, onClose, restaurantId , name , im
     return (
         <div
         className="fixed inset-0 bg-black/30 flex items-center justify-center z-50"
-            // onClick={() => {onClose();}}
         >
             <div
                 className="bg-white p-6 rounded-3xl shadow-xl w-[90%] "
-                // onClick={(e) => e.stopPropagation()}
             >
                 
                 <div className="flex flex-row relative ">
@@ -71,10 +67,7 @@ export default function CommentModal({ isOpen, onClose, restaurantId , name , im
                     <button
                         className="w-[5%] bg-white text-black py-2 border-2 rounded-full hover:bg-slate-300"
                             onClick={() => {
-                                // handlePost();
-                                // console.log(new Date(inputRef?.current?.value as string))
                                 onClose();
-
                             }}
                     >
                         cancel

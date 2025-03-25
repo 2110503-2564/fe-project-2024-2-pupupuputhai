@@ -42,7 +42,6 @@ export default function RestaurantPage({params} : {params:{rid:string}}){
             const res = await getRestaurant(params.rid);
             const com = await getComments(params.rid);
             const user = await getUserProfile(session?.user.token as string);
-            // console.log('user here --->', user);
             setUser(user.data);
             setRestaurant(res.data);
             setComments(com.data);
@@ -68,7 +67,6 @@ export default function RestaurantPage({params} : {params:{rid:string}}){
             
         }catch (e) {
             toast.error('comment Fail')
-            console.log('reserve fail',e)
         }
     }
 
@@ -160,8 +158,6 @@ export default function RestaurantPage({params} : {params:{rid:string}}){
 
                                             <div className="flex flex-row gap-1 pt-1 absolute right-2 "
                                                 onClick={() => {
-                                                    // console.log(`id: ${comment._id} + ${comment.user} + ${user?._id}`)
-                                                    console.log(session?.user)
                                                     if( (session?.user.role !== 'admin') && (user?._id !== comment.user))return
                                                     toggleDropdown(comment._id);
                                                 }}
@@ -189,9 +185,7 @@ export default function RestaurantPage({params} : {params:{rid:string}}){
                                                         </button>
                                                         <button className="block px-4 py-2 w-full text-left hover:bg-gray-100"
                                                             onClick={() => {
-                                                                // toggleEditModal(comment._id);
                                                                 handleDelete(comment._id);
-
                                                             }}
                                                         >
                                                             Delete
@@ -213,8 +207,7 @@ export default function RestaurantPage({params} : {params:{rid:string}}){
                             </div>
                         }
                     </div>
-                    
-                {/* </div> */}
+
             </div>
             <BookingModal
                 isOpen={showResModal}
@@ -232,10 +225,7 @@ export default function RestaurantPage({params} : {params:{rid:string}}){
                 img={""}
                 posted={() =>setIsCommentPosted(prev => !prev)}
             />
-            
-           
-            
-          
+        
         </div>
     )
 }

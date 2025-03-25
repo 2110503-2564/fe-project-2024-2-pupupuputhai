@@ -7,7 +7,6 @@ export default async function MainTopBar({children} : {children:React.ReactNode}
             <TopMenu/>
             <div className="h-[60px]"></div>
             {children}
-
         </div>
     )
 }

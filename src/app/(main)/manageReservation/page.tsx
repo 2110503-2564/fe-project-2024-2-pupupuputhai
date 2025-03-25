@@ -51,7 +51,6 @@ export default function ManageReservation() {
     useEffect(() => {
         const fetchData = async () => {
             const data = await getReservations(token);
-            console.log("Reservations Data:", data);
             setReservations(data || []);
         };
         fetchData();

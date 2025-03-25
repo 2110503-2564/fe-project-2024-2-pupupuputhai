@@ -1,12 +1,9 @@
 import Image from "next/image"
 import Link from "next/link"
-// import { useRouter } from "next/navigation"
 
-// 📍
 export default async function RestaurantSector( {restaurantJson}:{ restaurantJson:Promise<RestaurantJson> }){
     const restaurant = await restaurantJson
-    // const router = useRouter();
-    console.log('here------------->',restaurant);
+
 
     return(
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 px-5 m-4">

@@ -26,10 +26,8 @@ export default function EditCommentModal({ onClose, commentId , name , img , pos
                 posted();
                 toast.success('Comment update complete')
             }
-            // toast.success('Reserve Successfully ')
         }catch (e) {
             toast.error('comment Fail')
-            console.log('reserve fail',e)
         }
     }
 

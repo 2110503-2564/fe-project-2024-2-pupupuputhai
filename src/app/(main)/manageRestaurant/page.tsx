@@ -18,9 +18,7 @@ export default function ManageRestaurant() {
     const route = useRouter();
     const [restaurants,setRestaurants] = useState<RestaurantItem[]>([])
    
-    // const [next,setNext] = useState(true);
     const [isPosted, setIsPosted] = useState(false);
-    // const [prev,setPrev] = useState(true);
     useEffect(() => {
       const fetchData = async () => {
           const Restaurants = await getRestaurantsAll();
@@ -46,7 +44,6 @@ export default function ManageRestaurant() {
           
       }catch (e) {
           toast.error('comment Fail')
-          console.log('reserve fail',e)
       }
   }
 

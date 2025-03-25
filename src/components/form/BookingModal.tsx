@@ -71,7 +71,6 @@ export default function BookingModal({ isOpen, onClose, minTime , maxTime , rest
             toast.success('Reserve Successfully ')
         }catch (e) {
             toast.error('Reserve Fail')
-            console.log('reserve fail',e)
         }
     }
 
@@ -119,7 +118,6 @@ export default function BookingModal({ isOpen, onClose, minTime , maxTime , rest
                 className="w-full bg-red-400 text-white py-2 rounded hover:bg-red-500"
                     onClick={() => {
                         handleCheckOut();
-                        // console.log(new Date(inputRef?.current?.value as string))
                         onClose();
 
                     }}

@@ -1,6 +1,6 @@
 import React from "react";
-import Link from "next/link";  // นำเข้า Link จาก next/link
-import Image from "next/image"; // ใช้ Image จาก next/image
+import Link from "next/link";
+import Image from "next/image";
 
 export default function Dashboard() {
     return (
@@ -9,7 +9,6 @@ export default function Dashboard() {
                 Admin Dashboard
             </h1>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                {/* Reservation Card */}
                 <div className="bg-white p-6 pb-8 rounded-lg shadow-lg flex flex-col items-center">
                     <Image
                         src={'/image/logo.png'}
@@ -31,7 +30,6 @@ export default function Dashboard() {
                     </Link>
                 </div>
 
-                {/* Restaurant Card */}
                 <div className="bg-white p-6 pb-8 rounded-lg shadow-lg flex flex-col items-center">
                     <Image
                         src={'/image/logo.png'}
