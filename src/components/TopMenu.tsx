@@ -38,7 +38,7 @@ export default function TopMenu() {
             <div className="container mx-auto flex items-center justify-between h-[60px]">
                 <Link href="/" className="flex items-center space-x-3 cursor-pointer">
                     <Image 
-                        src={'/image/logo.png'}
+                        src={'/image/logo.jpg'}
                         alt='logo'
                         width={45} 
                         height={45}

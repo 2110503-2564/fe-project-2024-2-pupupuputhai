@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { useState } from 'react'
 
 export default function Promotion() {
-    const banner = ['/image/cover.jpg','/image/cover2.jpg','/image/cover3.jpg','/image/cover4.jpg',]
+    const banner = ['/image/promotion.jpg','/image/promotion2.jpg','/image/promotion3.jpg']
     const [index,setIndex] = useState(0)
 
     return (

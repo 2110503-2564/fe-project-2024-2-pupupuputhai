@@ -69,11 +69,11 @@ export default function BookingModal({ isOpen, onClose, minTime , maxTime , rest
                 }), 
             })
 
-            if (response.status !== 201) {
-                const errorData = await response.json();
-                throw new Error(errorData?.message || 'Reservation failed');
+            if(response.ok)toast.success('Reserve Successfully ')
+            else{
+                toast.error('Reserve Fail')
             }
-            toast.success('Reserve Successfully ')
+
         }catch (e) {
             toast.error('Reserve Fail')
         }

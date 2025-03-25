@@ -83,7 +83,7 @@ export default function RestaurantPage({params} : {params:{rid:string}}){
                     }}
                 >
                     <p className="ml-3 font-semibold text-lg">{restaurant.name}</p>
-                    <Image src={restaurant.image[imageIndex]}
+                    <Image src={restaurant.image[imageIndex] || '/image/noImage.jpg'}
                         alt={`${restaurant.name} image`}
                         width={0} height={0} sizes="100vw"
                         priority
@@ -143,7 +143,7 @@ export default function RestaurantPage({params} : {params:{rid:string}}){
                                 comments.map((comment:CommentItem) => (
                                     <div className="rounded-lg bg-white p-3 m-2">
                                         <div className="flex flex-row relative ">
-                                            <div className={`size-10 rounded-full inline bg-[url(/image/bloom.jpg)]`}/>
+                                            <div className="size-10 rounded-full inline border-2 border-red-300 bg-slate-100 "/>
                                             
                                             <div className="flex flex-col pl-3">
                                                 <p className="text-black">{comment.nameUser || comment.user}</p>
