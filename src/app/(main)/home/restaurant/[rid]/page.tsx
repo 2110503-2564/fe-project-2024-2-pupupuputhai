@@ -53,7 +53,7 @@ export default function RestaurantPage({params} : {params:{rid:string}}){
     
     const  handleDelete = async (id:string) => {
         try {
-            const response = await fetch(`https://backend-restaurant-project.vercel.app/api/comments/${id}` ,{
+            const response = await fetch(`${process.env.BACKEND_URL}/api/comments/${id}` ,{
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
