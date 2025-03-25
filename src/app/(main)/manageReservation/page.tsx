@@ -43,18 +43,19 @@ export default function ManageReservation() {
 
             const response = await getReservations(session.user.token);
             setReservations(response.data || []);
+            setRefreshKey((prev)=>prev+1)
         } catch (error) {
             console.error("Error deleting reservation:", error);
         }
     };
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchData = async () => { 
             const data = await getReservations(token);
-            setReservations(data || []);
+            setReservations(data);
         };
         fetchData();
-    }, [token]);
+    }, [token, refreshKey]);
 
 
 
@@ -83,7 +84,8 @@ export default function ManageReservation() {
                         <td className="border border-gray-300 px-4 py-2">{formattedDate}</td>
                         <td className="border border-gray-300 px-4 py-2 space-x-2">
                             <button className="bg-yellow-500 text-white px-3 py-1 rounded" onClick={() => handleEditClick(reservation)}>Edit</button>
-                            <button className="bg-red-500 text-white px-3 py-1 rounded" onClick={() => onDeleteClick(reservation._id)}>Delete</button>
+                            <button className="bg-red-500 text-white px-3 py-1 rounded" onClick={() => 
+                                {handleUpdate(); onDeleteClick(reservation._id)}}>Delete</button>
                         </td>
                     </tr>
                 )})

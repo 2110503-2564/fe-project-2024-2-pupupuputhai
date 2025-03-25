@@ -51,7 +51,7 @@ export default function EditReservationForm({ reservation, onClose, onUpdate }: 
         }
 
         const isAfterOpen = dateTime.isAfter(openTimeObj); 
-        const isBeforeClose = dateTime.isBefore(closeTimeObj);  
+        const isBeforeClose = dateTime.isBefore(closeTimeObj) || dateTime.isSame(closeTimeObj);  
         const isWithinRange = isAfterOpen && isBeforeClose;  
         
         return isWithinRange
