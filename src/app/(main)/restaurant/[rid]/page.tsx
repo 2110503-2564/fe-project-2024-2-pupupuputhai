@@ -2,7 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 
 export default function RestaurantPage({params} : {params:{rid:string}}){
-    let restaurant:RestaurantItem = {id:'001' , name:'resDee' , address:'123 street',tel:'222-333-4444',open_time:'9:00',close_time:'20:00',image:'/image/bloom.jpg' , description:'lsdkjfsdlkjfsldkjflksdjflksdjafwiejfowioefnvoenv'}
+    let restaurant:RestaurantItem = {_id:'001' , name:'resDee' , address:'123 street',tel:'222-333-4444',open_time:'9:00',close_time:'20:00',image:['/image/bloom.jpg'] , description:'lsdkjfsdlkjfsldkjflksdjflksdjafwiejfowioefnvoenv'}
     const comments = [
         {user:'001', restaurant:'001',comment:'อาาา หร่อยยย',createAt:'12/03/2077 11:13'},
         {user:'001', restaurant:'001',comment:'อาาา หร่อยยย',createAt:'12/03/2077 11:13'},
@@ -15,7 +15,7 @@ export default function RestaurantPage({params} : {params:{rid:string}}){
                 {/* Left Section - Only Image */}
                 <div className="bg-emerald-100 md:w-1/2 flex justify-center items-center p-6">
                     <Image 
-                        src={restaurant.image} 
+                        src={'/image/bloom.jpg'} 
                         alt={`${restaurant.name} image`} 
                         width={500} 
                         height={300} 
