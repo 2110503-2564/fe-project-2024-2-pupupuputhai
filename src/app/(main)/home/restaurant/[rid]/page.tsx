@@ -4,18 +4,36 @@ import getRestaurant from "@/libs/getRestaurant";
 import Image from "next/image"
 import { useEffect, useState } from "react";
 import { FaRegCommentDots } from "react-icons/fa";
-import { LinearProgress } from "@mui/material";
+import { IconButton, LinearProgress, Menu, MenuItem } from "@mui/material";
 import BookingModal from "@/components/form/BookingModal";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-
+import CommentModal from "@/components/form/CommentModal";
+import getUserProfile from "@/libs/auth/userGetMe";
+import EditCommentModal from "@/components/form/EditCommentModal";
 export default function RestaurantPage({params} : {params:{rid:string}}){
    
+    const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+
+    const toggleDropdown = (commentId: string) => {
+        setOpenDropdown(openDropdown === commentId ? null : commentId);
+    };
+    const [openEditModal, setOpenEditModal] = useState<string | null>(null);
+
+    const toggleEditModal = (commentId: string) => {
+        setOpenEditModal(openEditModal === commentId ? null : commentId);
+    };
+
+
+    
+
     const router = useRouter();
     const { data: session } = useSession();  
     const [restaurant, setRestaurant] = useState<RestaurantItem | null>(null);
-    const [comments, setComments] = useState<CommentItem[]>([])
+    const [comments, setComments] = useState<CommentItem[]>([]);
+    const [isCommentPosted, setIsCommentPosted] = useState(false);
+    const [ user, setUser] = useState<User | null>(null);
     const [showResModal, setShowResModal] = useState(false);
     const [showComModal, setShowComModal] = useState(false);
     const [imageIndex,setImageIndex] = useState(0);
@@ -23,11 +41,36 @@ export default function RestaurantPage({params} : {params:{rid:string}}){
         const fetchData = async () => {
             const res = await getRestaurant(params.rid);
             const com = await getComments(params.rid);
+            const user = await getUserProfile(session?.user.token as string);
+            console.log('user here --->', user);
+            setUser(user.data);
             setRestaurant(res.data);
             setComments(com.data);
         };
         fetchData();
-    }, [params.rid]);
+    }, [params.rid , isCommentPosted]);
+
+
+    
+    const  handleDelete = async (id:string) => {
+        try {
+            const response = await fetch(`https://backend-restaurant-project.vercel.app/api/comments/${id}` ,{
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    authorization: `Bearer ${session?.user.token as string}`,
+                },
+            })
+            if(response.ok){
+                setIsCommentPosted(prev => !prev)
+                toast.success('delete Successfully ')
+            }
+            
+        }catch (e) {
+            toast.error('comment Fail')
+            console.log('reserve fail',e)
+        }
+    }
 
     if(!restaurant)return(
         <p className="text-center text-lg mt-5">loading ...<LinearProgress/></p>
@@ -110,19 +153,53 @@ export default function RestaurantPage({params} : {params:{rid:string}}){
                                             <div className={`size-10 rounded-full inline bg-[url(/image/bloom.jpg)]`}/>
                                             
                                             <div className="flex flex-col pl-3">
-                                                <p className="text-black">{comment.user}</p>
+                                                <p className="text-black">{comment.nameUser || comment.user}</p>
                                                 <p className="text-xs text-black">{comment.createAt}</p>
                                             </div>
 
-                                            <div className="flex flex-row gap-1 pt-1 absolute right-2"
-                                                
+                                            <div className="flex flex-row gap-1 pt-1 absolute right-2 "
+                                                onClick={() => {
+                                                    // console.log(`id: ${comment._id} + ${comment.user} + ${user?._id}`)
+                                                    console.log(session?.user)
+                                                    if( (session?.user.role !== 'admin') && (user?._id !== comment.user))return
+                                                    toggleDropdown(comment._id);
+                                                }}
                                             >
-                                                <div className="rounded-full size-2 bg-black"/>
-                                                <div className="rounded-full size-2 bg-black"/>
-                                                <div className="rounded-full size-2 bg-black"/>
+                                                <div className="rounded-full size-2 bg-black"></div>
+                                                <div className="rounded-full size-2 bg-black"></div>
+                                                <div className="rounded-full size-2 bg-black"></div>
+                                                {openEditModal === comment._id && <EditCommentModal
+                                                    onClose={(c:string) => toggleEditModal(c)}
+                                                    commentId={comment._id}
+                                                    name={session?.user.name as string} 
+                                                    oldComment={comment.comment}
+                                                    img={""}
+                                                    posted={() =>setIsCommentPosted(prev => !prev)}
+                                                />
+                                                }
+                                                {openDropdown === comment._id && (
+                                                    <div className="absolute right-0 mt-2 w-32 bg-white border border-gray-300 rounded-md shadow-lg z-50">
+                                                        <button className="block px-4 py-2 w-full text-left hover:bg-gray-100"
+                                                            onClick={() => {
+                                                                toggleEditModal(comment._id);
+                                                            }}
+                                                        >
+                                                            Edit
+                                                        </button>
+                                                        <button className="block px-4 py-2 w-full text-left hover:bg-gray-100"
+                                                            onClick={() => {
+                                                                // toggleEditModal(comment._id);
+                                                                handleDelete(comment._id);
+
+                                                            }}
+                                                        >
+                                                            Delete
+                                                        </button>
+                                                    </div>
+                                                )}
                                             </div>
                                         </div>
-                                        <div>
+                                        <div className="mt-3">
                                             {comment.comment}
                                         </div>
                                     </div>
@@ -145,6 +222,17 @@ export default function RestaurantPage({params} : {params:{rid:string}}){
                 maxTime={restaurant.close_time}
                 restaurantId={params.rid}
             />
+
+            <CommentModal
+                isOpen={showComModal}
+                onClose={() => setShowComModal(false)}
+                restaurantId={params.rid}
+                name={session?.user.name as string}
+                img={""}
+                posted={() =>setIsCommentPosted(prev => !prev)}
+            />
+            
+           
             
           
         </div>
