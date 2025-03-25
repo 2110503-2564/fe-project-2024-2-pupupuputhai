@@ -1,5 +1,5 @@
 export default async function createComment(restaurantId:string ,date:Date , token:string) {
-    const response = await fetch(`https://backend-restaurant-project.vercel.app/api/restaurants/${restaurantId}/comments/`, {
+    const response = await fetch(`${process.env.BACKEND_URL}/api/restaurants/${restaurantId}/comments/`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

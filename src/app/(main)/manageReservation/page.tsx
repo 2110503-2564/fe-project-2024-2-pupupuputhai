@@ -66,23 +66,27 @@ export default function ManageReservation() {
                 <tr className="bg-gray-200">
                     <th className="border border-gray-300 px-4 py-2">Restaurant</th>
                     <th className="border border-gray-300 px-4 py-2">User</th>
-                    <th className="border border-gray-300 px-4 py-2">Booking Time</th>
+                    <th className="border border-gray-300 px-4 py-2">Reservation Time</th>
                     <th className="border border-gray-300 px-4 py-2">Actions</th>
                 </tr>
             </thead>
             <tbody>
             {reservations && reservations.data?.length > 0 ? (
-                reservations.data.map((reservation) => (
+                reservations.data.map((reservation) => {
+                    const reservationDate = new Date(reservation.reserDate);
+                    reservationDate.setHours(reservationDate.getHours()-7); 
+                    const formattedDate = reservationDate.toLocaleString();
+                    return (
                     <tr key={reservation._id} className="border border-gray-300">
                         <td className="border border-gray-300 px-4 py-2">{reservation.restaurant.name}</td>
                         <td className="border border-gray-300 px-4 py-2">{reservation.nameUser || "Unknown Name"}</td>
-                        <td className="border border-gray-300 px-4 py-2">{new Date(reservation.reserDate).toLocaleString()}</td>
+                        <td className="border border-gray-300 px-4 py-2">{formattedDate}</td>
                         <td className="border border-gray-300 px-4 py-2 space-x-2">
                             <button className="bg-yellow-500 text-white px-3 py-1 rounded" onClick={() => handleEditClick(reservation)}>Edit</button>
                             <button className="bg-red-500 text-white px-3 py-1 rounded" onClick={() => onDeleteClick(reservation._id)}>Delete</button>
                         </td>
                     </tr>
-                ))
+                )})
             ) : (
                 <tr>
                     <td colSpan={4} className="text-center py-4">No reservations found</td>

@@ -44,8 +44,12 @@ export default function EditReservationForm({ reservation, onClose, onUpdate }: 
         }
 
         const openTimeObj = dayjs(`${dateTime.format('YYYY-MM-DD')}T${openTime}:00`);
-        const closeTimeObj = dayjs(`${dateTime.format('YYYY-MM-DD')}T${closeTime}:00`);
+        let closeTimeObj = dayjs(`${dateTime.format('YYYY-MM-DD')}T${closeTime}:00`);
         
+        if (closeTimeObj.isBefore(openTimeObj)) {
+            closeTimeObj = closeTimeObj.add(1, "day"); 
+        }
+
         const isAfterOpen = dateTime.isAfter(openTimeObj); 
         const isBeforeClose = dateTime.isBefore(closeTimeObj);  
         const isWithinRange = isAfterOpen && isBeforeClose;  

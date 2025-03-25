@@ -5,7 +5,7 @@ export default async function userRegister(
     tel: string
   ) {
     const response = await fetch(
-      "https://backend-restaurant-project.vercel.app/api/auth/register",
+      `${process.env.BACKEND_URL}/api/auth/register`,
       {
         method: "POST",
         headers: {

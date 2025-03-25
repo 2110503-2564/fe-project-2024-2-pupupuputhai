@@ -12,7 +12,7 @@ export default function EditCommentModal({ onClose, commentId , name , img , pos
 
     const  handlePut = async () => {
         try {
-            const response = await fetch(`https://backend-restaurant-project.vercel.app/api/comments/${commentId}` ,{
+            const response = await fetch(`${process.env.BACKEND_URL}/api/comments/${commentId}` ,{
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",

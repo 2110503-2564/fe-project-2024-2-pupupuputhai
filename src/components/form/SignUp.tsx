@@ -15,7 +15,7 @@ export default function SignUp() {
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch("/api/auth/register", {
+      const response = await fetch(`${process.env.BACKEND_URL}/api/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, password, tel }),

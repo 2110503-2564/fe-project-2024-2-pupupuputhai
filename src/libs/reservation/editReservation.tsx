@@ -1,5 +1,5 @@
 export default async function editReservation(token: string, reserId: string, updatedData: object) {
-    const res = await fetch(`https://backend-restaurant-project.vercel.app/api/reservations/${reserId}` ,{
+    const res = await fetch(`${process.env.BACKEND_URL}/api/reservations/${reserId}` ,{
         method: "PUT",
         headers: {
             "Content-Type": "application/json",

@@ -19,6 +19,7 @@ export default function MyReservation({ onEditClick }: { onEditClick: (reservati
     const [reservations, setReservations] = useState<UserReservation[]>([])
     const fetched = useRef(false)
 
+
     const onDeleteClick = async (reservationId: string) => {
         try {
             if (!session?.user?.token) {

@@ -30,7 +30,7 @@ export default function ManageRestaurant() {
 
     const  handleDelete = async (id:string) => {
       try {
-          const response = await fetch(`https://backend-restaurant-project.vercel.app/api/restaurants/${id}` ,{
+          const response = await fetch(`${process.env.BACKEND_URL}/api/restaurants/${id}` ,{
               method: "DELETE",
               headers: {
                   "Content-Type": "application/json",

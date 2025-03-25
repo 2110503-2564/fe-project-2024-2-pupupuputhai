@@ -1,6 +1,6 @@
 export default async function getReservations(token: string) {
 
-    const res = await fetch("https://backend-restaurant-project.vercel.app/api/reservations/" ,{
+    const res = await fetch(`${process.env.BACKEND_URL}/api/reservations/` ,{
         method: "GET",
         headers: {
             "Authorization": `Bearer ${token}`

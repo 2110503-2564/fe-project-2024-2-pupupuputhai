@@ -30,7 +30,7 @@ export default function EditRestaurantForm( {Restaurant , onClose ,posted} : {Re
       return;
     }
 
-    const reponse = await fetch(`https://backend-restaurant-project.vercel.app/api/restaurants/${Restaurant._id}`, { 
+    const reponse = await fetch(`${process.env.BACKEND_URL}/api/restaurants/${Restaurant._id}`, { 
         method: "PUT",
         headers: {
           "Content-Type": "application/json" ,

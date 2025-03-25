@@ -3,7 +3,7 @@ import Image from "next/image";
 import CurvedShape from "./CurvedShape";
 import { useRouter } from "next/navigation";
 
-export default function ho(){
+export default function home(){
     const route = useRouter();
     return(
         <div className="relative h-screen w-full">

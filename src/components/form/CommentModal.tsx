@@ -13,7 +13,7 @@ export default function CommentModal({ isOpen, onClose, restaurantId , name , im
 
     const  handlePost = async () => {
         try {
-            const response = await fetch(`https://backend-restaurant-project.vercel.app/api/restaurants/${restaurantId}/comments/` ,{
+            const response = await fetch(`${process.env.BACKEND_URL}/api/restaurants/${restaurantId}/comments/` ,{
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

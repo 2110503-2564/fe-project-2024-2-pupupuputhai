@@ -57,7 +57,7 @@ export default function BookingModal({ isOpen, onClose, minTime , maxTime , rest
 
     const  handleCheckOut = async () => {
         try {
-            const response = await fetch(`https://backend-restaurant-project.vercel.app/api/restaurants/${restaurantId}/reservations/` ,{
+            const response = await fetch(`${process.env.BACKEND_URL}/api/restaurants/${restaurantId}/reservations/` ,{
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

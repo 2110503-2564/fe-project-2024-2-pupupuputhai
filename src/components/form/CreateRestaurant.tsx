@@ -21,7 +21,7 @@ export default function CreateRestaurantForm() {
       toast.error('please provide  all file');
       return;
     }
-    const reponse = await fetch("https://backend-restaurant-project.vercel.app/api/restaurants", { 
+    const reponse = await fetch(`${process.env.BACKEND_URL}/api/restaurants`, { 
         method: "POST",
         headers: {
           "Content-Type": "application/json" ,
