@@ -1,32 +1,31 @@
 'use client'
 import React, { useEffect, useRef, useState } from 'react';
-import AirDatepicker from 'air-datepicker';
 import 'air-datepicker/air-datepicker.css';
 import { useSession } from 'next-auth/react';
 import toast from 'react-hot-toast';
 import { TextField } from '@mui/material';
 
-export default function CommentModal({ isOpen, onClose, restaurantId , name , img , posted }:{isOpen:boolean,onClose:Function, restaurantId:string,name:string,img:string,posted:Function }) {
+export default function EditCommentModal({ onClose, commentId , name , img , posted , oldComment}:{onClose:Function, commentId:string,name:string,img:string,posted:Function, oldComment:string }) {
     const { data: session } = useSession();    
     const [comment ,setComment] = useState("")
     
 
-    const  handlePost = async () => {
+    const  handlePut = async () => {
         try {
-            const response = await fetch(`https://backend-restaurant-project.vercel.app/api/restaurants/${restaurantId}/comments/` ,{
-                method: "POST",
+            const response = await fetch(`https://backend-restaurant-project.vercel.app/api/comments/${commentId}` ,{
+                method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
                     authorization: `Bearer ${session?.user.token as string}`,
                 },
                 body: JSON.stringify({
-                    comment: comment,
-                    nameUser: session?.user.name,
-                    imagesUser: ""
-
+                    comment: comment
                 }), 
             })
-            if(response.ok)posted();
+            if(response.ok){
+                posted();
+                toast.success('Comment update complete')
+            }
             // toast.success('Reserve Successfully ')
         }catch (e) {
             toast.error('comment Fail')
@@ -34,16 +33,13 @@ export default function CommentModal({ isOpen, onClose, restaurantId , name , im
         }
     }
 
-    if (!isOpen) return null;
 
     return (
         <div
-        className="fixed inset-0 bg-black/30 flex items-center justify-center z-50"
-            // onClick={() => {onClose();}}
+            className="fixed inset-0 bg-black/30 flex items-center justify-center z-50"
         >
             <div
                 className="bg-white p-6 rounded-3xl shadow-xl w-[90%] "
-                // onClick={(e) => e.stopPropagation()}
             >
                 
                 <div className="flex flex-row relative ">
@@ -57,7 +53,7 @@ export default function CommentModal({ isOpen, onClose, restaurantId , name , im
                     <TextField
                         id="comment"
                         name="Comment"
-                        label="comment here"
+                        label={oldComment || "new comment here"}
                         variant="standard"
                         required
                         value={comment}
@@ -71,9 +67,7 @@ export default function CommentModal({ isOpen, onClose, restaurantId , name , im
                     <button
                         className="w-[5%] bg-white text-black py-2 border-2 rounded-full hover:bg-slate-300"
                             onClick={() => {
-                                // handlePost();
-                                // console.log(new Date(inputRef?.current?.value as string))
-                                onClose();
+                                onClose(commentId);
 
                             }}
                     >
@@ -83,8 +77,8 @@ export default function CommentModal({ isOpen, onClose, restaurantId , name , im
                         className="w-[5%] bg-white text-black py-2 border-2 rounded-full hover:bg-slate-300"
                             onClick={() => {
                                 if(!comment)return;
-                                handlePost();
-                                onClose();
+                                handlePut();
+                                onClose(commentId);
 
                             }}
                     >

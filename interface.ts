@@ -44,8 +44,21 @@ interface RestaurantItem {
 }
 
 interface CommentItem {
+  _id:string,
   user:string ,
+  imagesUser:string,
+  nameUser:string,
   restaurant: string,
   comment: string,
   createAt: string
+}
+
+interface User {
+    _id: string,
+    name: string,
+    email: string,
+    role: string,
+    tel: string,
+    createdAt: string,
+    token: string
 }
