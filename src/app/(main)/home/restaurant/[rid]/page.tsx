@@ -42,7 +42,7 @@ export default function RestaurantPage({params} : {params:{rid:string}}){
             const res = await getRestaurant(params.rid);
             const com = await getComments(params.rid);
             const user = await getUserProfile(session?.user.token as string);
-            console.log('user here --->', user);
+            // console.log('user here --->', user);
             setUser(user.data);
             setRestaurant(res.data);
             setComments(com.data);
@@ -88,7 +88,8 @@ export default function RestaurantPage({params} : {params:{rid:string}}){
                     <Image src={restaurant.image[imageIndex]}
                         alt={`${restaurant.name} image`}
                         width={0} height={0} sizes="100vw"
-                        className="rounded-lg w-full"
+                        priority
+                        className="rounded-lg w-full h-[650px] object-cover ml-2"
                     />
                     <p className="ml-3 mt-4 mb-4">open time - close time:  {restaurant.open_time} - {restaurant.close_time}</p>
                 </div>

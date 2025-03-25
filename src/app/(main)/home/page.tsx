@@ -16,7 +16,7 @@ export default function HomePage(){
    
     useEffect(() => {
         const fetchData = async () => {
-            const Restaurants = await getRestaurants(page,search);
+            const Restaurants = await getRestaurants(page,10,search);
             setRestaurant(Restaurants);
             if(!Restaurants.pagination.next){
                 console.log(`not have next ${Restaurants.pagination.next}`)
@@ -30,7 +30,7 @@ export default function HomePage(){
             }else if(Restaurants.pagination.prev){
                 setPrev(true)
             }
-            console.log(Restaurants)
+            // console.log(Restaurants)
         };
         fetchData();    
     },[page, search]);
@@ -79,15 +79,6 @@ export default function HomePage(){
                     ''
                 }
                 <div className="flex items-center bg-gray-300 rounded-full mx-2">
-                {/* {Array.from({ length: totalPages }, (_, i) => (
-                    <button
-                    key={i + 1}
-                    onClick={() => handlePageClick(i + 1)}
-                    className={`w-8 h-8 flex items-center justify-center rounded-full mx-1 transition-colors ${page === i + 1 ? 'bg-red-500 text-white' : 'text-gray-700'}`}
-                    >
-                    {i + 1}
-                    </button>
-                ))} */}
                    <p className="mx-2">{page}</p> 
                 </div>
                 {next?
