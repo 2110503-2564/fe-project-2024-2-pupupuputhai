@@ -68,6 +68,11 @@ export default function BookingModal({ isOpen, onClose, minTime , maxTime , rest
                     nameUser: session?.user.name
                 }), 
             })
+
+            if (response.status !== 201) {
+                const errorData = await response.json();
+                throw new Error(errorData?.message || 'Reservation failed');
+            }
             toast.success('Reserve Successfully ')
         }catch (e) {
             toast.error('Reserve Fail')

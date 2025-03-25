@@ -102,22 +102,18 @@ export default function RestaurantPage({params} : {params:{rid:string}}){
                     <div className="text-sm mx-5 p-5 pb-10  text-slate-900 ">
                          tel: {restaurant.tel}
                     </div> 
-                    {/* <Link href={`/booing?id=${params.vid}&venue=${VenueDetail.name}`}> */}
                     <button className="absolute right-2 bottom-2 rounded-md bg-gradient-to-r from-red-700 to-red-500 
                         px-3 py-2 text-white transition-transform duration-300 transform hover:scale-105 hover:opacity-90"
                         onClick={() => {
                             if(!session?.user){
                                 router.push('/login')
                             }
-                            // toast.success('Successfully toasted!');
                             setShowResModal(true);
                         }}
                     >
                         Book Now
                     </button>
 
-
-                    {/* </Link> */}
                 </div>
             </div>
 
@@ -126,7 +122,6 @@ export default function RestaurantPage({params} : {params:{rid:string}}){
                 <div className="ml-2 text-xl font-semibold">
                     Comment
                 </div>
-                {/* <div className="relative"> */}
                     
                     <div className="rounded-md flex flex-col bg-slate-100 pt-2 ">
                         <div className="place-items-end mr-3"
@@ -137,7 +132,6 @@ export default function RestaurantPage({params} : {params:{rid:string}}){
                                     if(!session?.user){
                                         router.push('/login')
                                     }
-                                    // toast.success('hi')
                                     setShowComModal(true);
                                 }}
                             />    
