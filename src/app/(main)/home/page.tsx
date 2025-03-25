@@ -44,7 +44,7 @@ export default function HomePage(){
                     
                         <div className='w-full h-[400px] rounded-lg shadow-lg bg-white border-2 border-solid'>
                             <div className='w-full h-[60%] relative rounded-t-lg'>
-                                <Image src={item.image[0]}
+                                <Image src={item.image[0] || '/image/noImage.jpg'}
                                 alt='table'
                                 fill={true}
                                 className='object-cover rounded-t-lg'             

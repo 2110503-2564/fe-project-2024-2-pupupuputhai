@@ -41,7 +41,7 @@ export default function EditCommentModal({ onClose, commentId , name , img , pos
             >
                 
                 <div className="flex flex-row relative ">
-                    <div className={`size-10 rounded-full inline bg-[url(${img || '/image/bloom.jpg'})]`}/>
+                    <div className="size-10 rounded-full inline border-2 border-red-300 bg-slate-100 " />
                     
                     <div className="flex flex-col pl-3">
                         <p className="text-black">{name}</p>

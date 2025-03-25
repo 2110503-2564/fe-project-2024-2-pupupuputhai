@@ -68,7 +68,10 @@ export default function BookingModal({ isOpen, onClose, minTime , maxTime , rest
                     nameUser: session?.user.name
                 }), 
             })
-            toast.success('Reserve Successfully ')
+            if(response.ok)toast.success('Reserve Successfully ')
+            else{
+                toast.error('Reserve Fail')
+            }
         }catch (e) {
             toast.error('Reserve Fail')
         }
