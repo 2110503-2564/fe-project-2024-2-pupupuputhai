@@ -62,3 +62,23 @@ interface User {
     createdAt: string,
     token: string
 }
+
+interface Reservation {
+  _id: string;
+  reserDate: string;
+  user: string;
+  nameUser?: string;
+  restaurant: {
+    _id: string;
+    name: string;
+    address: string;
+    tel: string;
+  };
+  createdAt: string;
+}
+
+interface ReservationResponse {
+  success: boolean;
+  count: number;
+  data: Reservation[];
+}
