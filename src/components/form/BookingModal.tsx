@@ -64,7 +64,8 @@ export default function BookingModal({ isOpen, onClose, minTime , maxTime , rest
                     authorization: `Bearer ${session?.user.token as string}`,
                 },
                 body: JSON.stringify({
-                    reserDate: inputRef?.current?.value
+                    reserDate: inputRef?.current?.value,
+                    nameUser: session?.user.name
                 }), 
             })
             toast.success('Reserve Successfully ')
